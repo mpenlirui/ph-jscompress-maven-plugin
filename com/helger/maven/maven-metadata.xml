@@ -3,7 +3,7 @@
   <plugins>
     <plugin>
       <name>ph-jscompress-maven-plugin</name>
-      <prefix>jscompress</prefix>
+      <prefix>ph-jscompress</prefix>
       <artifactId>ph-jscompress-maven-plugin</artifactId>
     </plugin>
   </plugins>

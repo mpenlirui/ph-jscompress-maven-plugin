@@ -29,7 +29,6 @@
   <version>5.0.0</version>
   <packaging>maven-plugin</packaging>
   <name>ph-jscompress-maven-plugin</name>
-  <!-- 
   <description>Maven plugin for compressing JS files at build time</description>
   <url>https://github.com/phax/ph-jscompress-maven-plugin</url>
   <inceptionYear>2014</inceptionYear>
@@ -69,7 +68,6 @@
   <prerequisites>
     <maven>3.2</maven>
   </prerequisites>
-  -->
   <properties>
    <github.global.server>github</github.global.server>
     <maven.version>3.3.3</maven.version>
@@ -159,8 +157,6 @@
     
     
     
-    <!-- 
-    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -195,11 +191,9 @@
           </execution>
         </executions>
       </plugin>
-       -->
     </plugins>
   </build>
   
-  <!-- 
   <reporting>
     <plugins>
       <plugin>
@@ -209,6 +203,5 @@
       </plugin>
     </plugins>
   </reporting>
-   -->
   
 </project>

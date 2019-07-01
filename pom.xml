@@ -24,7 +24,7 @@
     <artifactId>parent-pom</artifactId>
     <version>1.10.8</version>
   </parent>
-  <groupId>com.helger.maven</groupId>
+  <groupId>cn.com.mpen</groupId>
   <artifactId>ph-jscompress-maven-plugin</artifactId>
   <version>5.0.0</version>
   <packaging>maven-plugin</packaging>

@@ -36,6 +36,7 @@ public final class JSCompressMojoTest
     final JSCompressMojo x = new JSCompressMojo ();
     x.setProject (new MavenProject ((Model) null));
     x.setSourceDirectory (new File ("src/test/resources/js"));
+    x.setOutputDirectory(new File("target/classes/static"));
     x.setForceCreation (true);
     x.execute ();
   }

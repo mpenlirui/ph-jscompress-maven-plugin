@@ -149,7 +149,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     {
       // Build result file name
       m_aLog.info ("Compressing JS " + aSourceFile.getName () + " to " + aDestFile.getName ());
-
+      m_aLog.info ("Compressing JS " + aSourceFile.getAbsolutePath() + " to " + aDestFile.getAbsolutePath());
       final List <String> aExternList = new ArrayList <> ();
       for (final File f : aExterns)
         aExternList.add (f.getAbsolutePath ());

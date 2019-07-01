@@ -58,6 +58,16 @@ public final class JSCompressMojo extends AbstractMojo
    *            default-value="${basedir}/src/main/resources"
    */
   private File sourceDirectory;
+  
+  /**
+   * The directory where the JS files reside. It must be an existing directory.
+   *
+   * @required
+   * @parameter property="sourceDirectory"
+   *            default-value="${basedir}/src/main/resources"
+   */
+  private File outputDirectory;
+
 
   /**
    * Should the system properties be emitted as well?
@@ -78,7 +88,7 @@ public final class JSCompressMojo extends AbstractMojo
    *
    * @parameter property="targetFileExtension" default-value=".min.js"
    */
-  private String targetFileExtension = ".min.js";
+  private String targetFileExtension = ".js";
 
   /**
    * Should the system properties be emitted as well?
@@ -99,6 +109,18 @@ public final class JSCompressMojo extends AbstractMojo
       sourceDirectory = new File (project.getBasedir (), aDir.getPath ());
     if (!sourceDirectory.exists ())
       getLog ().error ("JS source directory '" + sourceDirectory + "' does not exist!");
+  }
+  
+  public void setOutputDirectory (final File aDir)
+  {
+    outputDirectory = aDir;
+    if (!outputDirectory.isAbsolute ())
+    	outputDirectory = new File (project.getBasedir (), aDir.getPath ());
+    if (!outputDirectory.exists ())
+    	outputDirectory.mkdirs();
+//      getLog ().error ("JS source directory '" + sourceDirectory + "' does not exist!");
+    
+    getLog ().error ("JS output directory '" + outputDirectory.getAbsolutePath() + "' does not exist!");
   }
 
   public void setRecursive (final boolean bRecursive)
@@ -153,14 +175,20 @@ public final class JSCompressMojo extends AbstractMojo
   {
     // Compress the file only if the compressed file is older than the original
     // file. Note: lastModified on a non-existing file returns 0L
-    final File aCompressed = new File (getWithoutExtension (aChild.getAbsolutePath ()) + targetFileExtension);
-    if (forceCreation || aCompressed.lastModified () < aChild.lastModified ())
-    {
+	  
+	String srcPath = aChild.getAbsolutePath();
+	String basePath = sourceDirectory.getAbsolutePath();
+	String lastPath = srcPath.replace(basePath, "");
+	getLog ().error ("outputdir======="+outputDirectory.getAbsolutePath()+"|lastPath===============" + lastPath);
+	  
+    final File aCompressed = new File (outputDirectory.getAbsolutePath () + lastPath);
+//    if (forceCreation || aCompressed.lastModified () < aChild.lastModified ())
+//    {
       getLog ().debug ("Start " + (forceCreation ? "forced " : "") + "compressing JS file " + aChild.toString ());
       aRunner.compressJSFile (aChild, aCompressed, new File [0]);
-    }
-    else
-      getLog ().debug ("Ignoring already compressed JS file " + aChild.toString ());
+//    }
+//    else
+//      getLog ().debug ("Ignoring already compressed JS file " + aChild.toString ());
   }
 
   private void _scanDirectory (@Nonnull final File aDir, @Nonnull final ClosureRunner aRunner)

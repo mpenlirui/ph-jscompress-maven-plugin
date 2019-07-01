@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>ph-jscompress-maven-plugin</name>
+      <prefix>jscompress</prefix>
+      <artifactId>ph-jscompress-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</metadata>

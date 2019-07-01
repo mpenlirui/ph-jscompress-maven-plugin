@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.helger</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>1.10.8</version>
+  </parent>
+  <groupId>cn.com.mpen</groupId>
+  <artifactId>ph-jscompress-maven-plugin</artifactId>
+  <version>5.0.0</version>
+  <packaging>maven-plugin</packaging>
+  <name>ph-jscompress-maven-plugin</name>
+  <!-- 
+  <description>Maven plugin for compressing JS files at build time</description>
+  <url>https://github.com/phax/ph-jscompress-maven-plugin</url>
+  <inceptionYear>2014</inceptionYear>
+  
+  
+  
+  
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <scm>
+    <connection>scm:git:git@github.com:phax/ph-jscompress-maven-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:phax/ph-jscompress-maven-plugin.git</developerConnection>
+    <url>http://github.com/phax/ph-jscompress-maven-plugin</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <organization>
+    <name>Philip Helger</name>
+    <url>http://www.helger.com</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>philip</id>
+      <name>Philip Helger</name>
+      <email>ph(at)helger.com</email>
+      <url>http://www.helger.com</url>
+    </developer>
+  </developers>
+  
+  <prerequisites>
+    <maven>3.2</maven>
+  </prerequisites>
+  -->
+  <properties>
+   <github.global.server>github</github.global.server>
+    <maven.version>3.3.3</maven.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- v20140407 and on is targeting JDK 1.7 -->
+    <!-- v20160822 and on is targeting JDK 1.8 -->
+    <dependency>
+      <groupId>com.google.javascript</groupId>
+      <artifactId>closure-compiler</artifactId>
+      <version>v20190415</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.ant</groupId>
+          <artifactId>ant</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+ 
+  <build>
+    <plugins>
+    
+   		<plugin>
+        	<artifactId>maven-deploy-plugin</artifactId>
+            <version>2.8.1</version>
+            <configuration>
+            	<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/ph-jscompress-maven-plugin</altDeploymentRepository>
+            </configuration>
+      </plugin>
+    
+    
+    		<plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version >0.12</version>
+                <configuration>
+                    <message >Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/ph-jscompress-maven-plugin</outputDirectory><!--本地jar地址-->
+                    <branch>refs/heads/master</branch><!--分支的名称-->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>ph-jscompress-maven-plugin</repositoryName><!--对应github上创建的仓库名称 name-->
+                    <repositoryOwner>mpenlirui</repositoryOwner><!--github 仓库所有者即登录用户名-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- 
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
+      </plugin>      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <configuration>
+          <goalPrefix>jscompress</goalPrefix>
+        </configuration>
+        <executions>
+          <execution>
+            <id>descriptor</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>helpmojo</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>addPluginArtifactMetadata</id>
+            <goals>
+              <goal>addPluginArtifactMetadata</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+       -->
+    </plugins>
+  </build>
+  
+  <!-- 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.0</version>
+      </plugin>
+    </plugins>
+  </reporting>
+   -->
+  
+</project>

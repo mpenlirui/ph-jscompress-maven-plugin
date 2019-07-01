@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.maven</groupId>
   <artifactId>ph-jscompress-maven-plugin</artifactId>
-  <version>2.2.1</version>
+  <version>5.0.0</version>
   <packaging>maven-plugin</packaging>
   <name>ph-jscompress-maven-plugin</name>
   <description>Maven plugin for compressing JS files at build time</description>
@@ -67,6 +67,7 @@
   </prerequisites>
  
   <properties>
+   <github.global.server>github</github.global.server>
     <maven.version>3.3.3</maven.version>
   </properties>
   
@@ -102,8 +103,60 @@
     </dependency>
   </dependencies>
   
+ 
   <build>
     <plugins>
+    
+   		<plugin>
+        	<artifactId>maven-deploy-plugin</artifactId>
+            <version>2.8.1</version>
+            <configuration>
+            	<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/ph-jscompress-maven-plugin</altDeploymentRepository>
+            </configuration>
+      </plugin>
+    
+    
+    		<plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version >0.12</version>
+                <configuration>
+                    <message >Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/ph-jscompress-maven-plugin</outputDirectory><!--本地jar地址-->
+                    <branch>refs/heads/master</branch><!--分支的名称-->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>ph-jscompress-maven-plugin</repositoryName><!--对应github上创建的仓库名称 name-->
+                    <repositoryOwner>mpenlirui</repositoryOwner><!--github 仓库所有者即登录用户名-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -141,6 +194,7 @@
     </plugins>
   </build>
   
+  
   <reporting>
     <plugins>
       <plugin>
@@ -150,4 +204,6 @@
       </plugin>
     </plugins>
   </reporting>
+  
+  
 </project>

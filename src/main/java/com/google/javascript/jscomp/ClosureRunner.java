@@ -88,11 +88,10 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   {
     // TODO make language configurable
     final LanguageMode eJSLanguage = LanguageMode.ECMASCRIPT_2015;
-
     final CompilerOptions options = new CompilerOptions ();
     options.setCodingConvention (new ClosureCodingConvention ());
     options.setLanguageIn (eJSLanguage);
-    options.setLanguageOut (eJSLanguage);
+    options.setLanguageOut (LanguageMode.ECMASCRIPT5);
 
     // Optimizations:
     final CompilationLevel level = CompilationLevel.SIMPLE_OPTIMIZATIONS;
